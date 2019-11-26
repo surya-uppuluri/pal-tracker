@@ -7,7 +7,8 @@ applications:
       JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
   - name: pal-tracker-100
     path: build/libs/pal-tracker.jar
-    random-route: true
+    routes:
+      - route: pal-tracker-rajsurya.cfapps.io
     env:
       WELCOME_MESSAGE: Hello from Cloud Foundry
       JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'

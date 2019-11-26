@@ -9,15 +9,6 @@ import java.util.Map;
 
 @RestController
 public class EnvController {
-
-
-    /**
-     * @param s
-     * @param s1
-     * @param s2
-     * @param s3
-     */
-
     String PORT;
     String MEMORY_LIMIT;
     String CF_INSTANCE_INDEX;

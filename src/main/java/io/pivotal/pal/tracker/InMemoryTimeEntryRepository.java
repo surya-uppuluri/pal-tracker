@@ -1,11 +1,13 @@
 package io.pivotal.pal.tracker;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @Repository
+@Primary
 public class InMemoryTimeEntryRepository implements TimeEntryRepository {
 
     HashMap<Long, TimeEntry> repo = new HashMap();
@@ -35,7 +37,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
         repo.remove(timeEntryId);
 
 
-      /*  return find(timeEntryId);*/
+        /*  return find(timeEntryId);*/
     }
 
 

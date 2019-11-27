@@ -24,3 +24,5 @@ public class WelcomeApiTest {
         assertThat(body).isEqualTo("Hello from test");
     }
 }
+
+//cd ~/workspace/assignment-submission;    ./gradlew cloudNativeDeveloperRest -PserverUrl=https://pal-tracker-raj-surya.cfapps.io/

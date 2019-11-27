@@ -49,4 +49,5 @@ public class TimeEntryController {
     public ResponseEntity delete(@PathVariable long id) {
         return new ResponseEntity(timeEntryRepository.delete(id), HttpStatus.NO_CONTENT);
     }
+
 }

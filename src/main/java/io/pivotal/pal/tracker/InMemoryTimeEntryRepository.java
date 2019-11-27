@@ -2,9 +2,7 @@ package io.pivotal.pal.tracker;
 
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 @Repository
@@ -32,12 +30,12 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     }
 
     @Override
-    public TimeEntry delete(long timeEntryId) {
+    public void delete(long timeEntryId) {
 
         repo.remove(timeEntryId);
 
 
-        return find(timeEntryId);
+      /*  return find(timeEntryId);*/
     }
 
 

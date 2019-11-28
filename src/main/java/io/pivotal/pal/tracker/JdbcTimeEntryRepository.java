@@ -1,8 +1,8 @@
 package io.pivotal.pal.tracker;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -39,22 +39,25 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
 
             return statement;
         }, generatedKeyHolder);
-
         return find(generatedKeyHolder.getKey().longValue());
     }
 
 
     @Override
     public TimeEntry find(long id) {
-        return jdbcTemplate.query(
-                "SELECT id, project_id, user_id, date, hours FROM time_entries WHERE id = ?",
-                new Object[]{id},
-                extractor);
+        try {
+            return (TimeEntry) jdbcTemplate.queryForObject(
+                    "SELECT id, project_id, user_id, date, hours FROM time_entries WHERE id = ?",
+                    new Object[]{id},
+                    new BeanPropertyRowMapper(TimeEntry.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public List<TimeEntry> list() {
-        return jdbcTemplate.query("SELECT id, project_id, user_id, date, hours FROM time_entries", mapper);
+        return jdbcTemplate.query("SELECT id, project_id, user_id, date, hours FROM time_entries", new BeanPropertyRowMapper(TimeEntry.class));
     }
 
 
@@ -77,14 +80,4 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
         jdbcTemplate.update("DELETE FROM time_entries WHERE id = ?", id);
     }
 
-    private final RowMapper<TimeEntry> mapper = (rs, rowNum) -> new TimeEntry(
-            rs.getLong("id"),
-            rs.getLong("project_id"),
-            rs.getLong("user_id"),
-            rs.getDate("date").toLocalDate(),
-            rs.getInt("hours")
-    );
-
-    private final ResultSetExtractor<TimeEntry> extractor =
-            (rs) -> rs.next() ? mapper.mapRow(rs, 1) : null;
 }

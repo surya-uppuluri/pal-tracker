@@ -1,20 +1,18 @@
 package io.pivotal.pal.tracker;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 
 public class TimeEntry {
 
 
-    private long timeEntryId;
+    private long id;
     private long projectId;
     private long userId;
     private LocalDate date;
     private int hours;
 
-    public TimeEntry(long timeEntryId, long projectId, long userId, LocalDate date, int hours) {
-        this.timeEntryId = timeEntryId;
+    public TimeEntry(long id, long projectId, long userId, LocalDate date, int hours) {
+        this.id = id;
         this.projectId = projectId;
         this.userId = userId;
         this.date = date;
@@ -32,12 +30,12 @@ public class TimeEntry {
     }
 
 
-    public long getTimeEntryId() {
-        return timeEntryId;
+    public long getId() {
+        return id;
     }
 
-    public void setTimeEntryId(long timeEntryId) {
-        this.timeEntryId = timeEntryId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getProjectId() {
@@ -75,7 +73,7 @@ public class TimeEntry {
     @Override
     public String toString() {
         return "TimeEntry{" +
-                "timeEntryId=" + timeEntryId +
+                "timeEntryId=" + id +
                 ", projectId=" + projectId +
                 ", userId=" + userId +
                 ", date=" + date +
@@ -91,7 +89,7 @@ public class TimeEntry {
 
         TimeEntry timeEntry = (TimeEntry) o;
 
-        if (getTimeEntryId() != timeEntry.getTimeEntryId()) return false;
+        if (getId() != timeEntry.getId()) return false;
         if (getProjectId() != timeEntry.getProjectId()) return false;
         if (getUserId() != timeEntry.getUserId()) return false;
         if (getHours() != timeEntry.getHours()) return false;
@@ -102,7 +100,7 @@ public class TimeEntry {
 
     @Override
     public int hashCode() {
-        int result = (int) (getTimeEntryId() ^ (getTimeEntryId() >>> 32));
+        int result = (int) (getId() ^ (getId() >>> 32));
         result = 31 * result + (int) (getProjectId() ^ (getProjectId() >>> 32));
         result = 31 * result + (int) (getUserId() ^ (getUserId() >>> 32));
         result = 31 * result + getDate().hashCode();
@@ -110,7 +108,4 @@ public class TimeEntry {
         return result;
     }
 
-    public Long getId() {
-        return this.timeEntryId;
-    }
 }

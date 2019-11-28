@@ -14,7 +14,7 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     long counter = 1L;
 
     public TimeEntry create(TimeEntry timeEntry) {
-        timeEntry.setTimeEntryId(counter);
+        timeEntry.setId(counter);
         repo.put(counter, timeEntry);
         ++counter;
         return timeEntry;
@@ -26,15 +26,15 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     }
 
     public TimeEntry update(long id, TimeEntry timeEntry) {
-        timeEntry.setTimeEntryId(id);
+        timeEntry.setId(id);
         repo.replace(id, timeEntry);
         return repo.get(id);
     }
 
     @Override
-    public void delete(long timeEntryId) {
+    public void delete(long id) {
 
-        repo.remove(timeEntryId);
+        repo.remove(id);
 
 
         /*  return find(timeEntryId);*/
